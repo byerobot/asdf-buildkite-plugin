@@ -1,0 +1,14 @@
+steps:
+  - label: ":shell: Shellcheck"
+    plugins:
+      - shellcheck#v1.1.2:
+          files:
+            - hooks/command
+            - hooks/environment
+
+  - wait
+
+  - label: ":rocket: Release"
+    plugins:
+      - ssh://git@github.com/riskalyze/buildkite-semantic-release-plugin.git#v4:
+          git-major-tag: true

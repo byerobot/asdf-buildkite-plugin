@@ -1,0 +1,5 @@
+#!/bin/bash
+set -ueo pipefail
+
+PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export PLUGIN_DIR
