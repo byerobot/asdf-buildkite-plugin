@@ -23,3 +23,6 @@ done < .tool-versions
 
 echo "--- :toolbox: Installing asdf tool versions"
 asdf install
+
+export ASDF_DIR
+export PATH
