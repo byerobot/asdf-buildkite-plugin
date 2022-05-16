@@ -11,6 +11,7 @@ fi
 echo "--- :git: Cloning asdf"
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch "$ASDF_VERSION" || true
 
+# shellcheck source=/dev/null
 . "$HOME"/.asdf/asdf.sh
 
 echo "--- :jigsaw: Installing asdf plugins"
