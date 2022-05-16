@@ -24,5 +24,10 @@ done < .tool-versions
 echo "--- :toolbox: Installing asdf tool versions"
 asdf install
 
+if grep -q nodejs .tool-versions; then
+  echo "--- :yarn: Installing yarn"
+  npm i -g yarn
+fi
+
 export ASDF_DIR
 export PATH
