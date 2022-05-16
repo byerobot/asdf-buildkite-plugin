@@ -3,8 +3,7 @@ steps:
     plugins:
       - shellcheck#v1.1.2:
           files:
-            - hooks/command
-            - hooks/environment
+            - hooks/pre-command
 
   - wait
 
