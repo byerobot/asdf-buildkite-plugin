@@ -1,36 +1,25 @@
 #!/usr/bin/env bash
 set -ueo pipefail
 
-# Text formatting options
-bold=$(tput bold)
-dim=$(tput dim)
-normal=$(tput sgr0)
+ASDF_VERSION="v0.10.0"
 
-# Example of getting a plugin parameter:
-# myparam=${BUILDKITE_PLUGIN_BUILDKITE_ASDF_PLUGIN_GIT_MYPARAM}
+if [ ! -f ".tool-versions" ]; then
+  echo "No .tool-versions found! Aborting."
+  exit 1
+fi
 
-# Assemble Docker arguments
-args=(
-  "-it" "--rm" "--init"
-  "--volume" "${BUILDKITE_BUILD_CHECKOUT_PATH}:/workspace"
-  "--volume" "${PLUGIN_DIR}:/plugin"
-  "--volume" "/usr/bin/buildkite-agent:/usr/bin/buildkite-agent"
-  "--workdir" "/workspace"
-  "--env" "BUILDKITE_AGENT_ACCESS_TOKEN"
-  "--env" "BUILDKITE_BRANCH"
-  "--env" "BUILDKITE_BUILD_ID"
-  "--env" "BUILDKITE_JOB_ID"
-  "--env" "BUILDKITE_PIPELINE_DEFAULT_BRANCH"
-  "alpine:3"
-  "/plugin/scripts/run.sh"
-)
+echo "--- :git: Cloning asdf"
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch "$ASDF_VERSION" || true
 
-echo -e "--- :docker: Running script in Docker"
-echo -ne "${dim}\$${normal} docker run " >&2
+# shellcheck source=/dev/null
+. "$HOME"/.asdf/asdf.sh
 
-# Print all the arguments, with a space after, properly shell quoted
-printf "%q " "${args[@]}"
-echo
+echo "--- :jigsaw: Installing asdf plugins"
+while IFS="" read -r p || [ -n "$p" ]
+do
+  plugin_name="${p%% *}"
+  asdf plugin-add "$plugin_name" || true
+done < .tool-versions
 
-# Run the script in Docker
-docker run "${args[@]}"
+echo "--- :toolbox: Installing asdf tool versions"
+asdf install
