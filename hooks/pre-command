@@ -2,7 +2,7 @@
 set -ueo pipefail
 
 ASDF_VERSION="v0.10.0"
-path=$(echo "${BUILDKITE_PLUGIN_BUILDKITE_ASDF_PLUGIN_GIT_PATH:-.}" | sed 's/^\///') # strip prefixed slashes
+path=$(echo "${BUILDKITE_PLUGIN_ASDF_PATH:-.}" | sed 's/^\///') # strip prefixed slashes
 
 echo "--- :wrench: Configuring tools with asdf"
 pushd "$path" || exit 1
