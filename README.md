@@ -1,7 +1,5 @@
 # Buildkite Asdf Plugin
 
-[![Build status](https://badge.buildkite.com/e3e424ff25712d5d1f1566ed06aac73af688f695ada6f8472f.svg)](https://buildkite.com/riskalyze/plugins-buildkite-asdf-plugin)
-
 Use [asdf](https://asdf-vm.com/) .tool-versions files to manage your pipeline's tools.
 
 ## Example
