@@ -1,6 +1,6 @@
 name: Asdf
 description: Use asdf .tool-versions to manage your pipeline's tools
-author: https://github.com/riskalyze
+author: https://github.com/jessebye
 requirements: []
 configuration:
   properties:
