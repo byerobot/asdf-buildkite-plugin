@@ -12,7 +12,7 @@ Add the following to your `pipeline.yml`:
 steps:
   - command: yarn && yarn test
     plugins:
-      - ssh://git@github.com/riskalyze/buildkite-asdf-plugin.git#v1: ~
+      - asdf#v1.2.1: ~
 ```
 
 `asdf` will look for a `.tool-versions` in your repo's root and install the plugins and tool versions listed there.
