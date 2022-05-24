@@ -2,30 +2,33 @@
 set -ueo pipefail
 
 ASDF_VERSION="v0.10.0"
+path=$(echo "${BUILDKITE_PLUGIN_BUILDKITE_ASDF_PLUGIN_GIT_PATH:-.}" | sed 's/^\///') # strip prefixed slashes
 
+echo "--- :wrench: Configuring tools with asdf"
+cd "$path" || exit 1
 if [ ! -f ".tool-versions" ]; then
   echo "No .tool-versions found! Aborting."
   exit 1
 fi
 
-echo "--- :git: Cloning asdf"
+echo "~~~ :git: Cloning asdf"
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch "$ASDF_VERSION" || true
 
 # shellcheck source=/dev/null
 . "$HOME"/.asdf/asdf.sh
 
-echo "--- :jigsaw: Installing asdf plugins"
+echo "~~~ :jigsaw: Installing asdf plugins"
 while IFS="" read -r p || [ -n "$p" ]
 do
   plugin_name="${p%% *}"
   asdf plugin-add "$plugin_name" || true
 done < .tool-versions
 
-echo "--- :toolbox: Installing asdf tool versions"
+echo "~~~ :toolbox: Installing asdf tool versions"
 asdf install
 
 if grep -q nodejs .tool-versions; then
-  echo "--- :yarn: Installing yarn"
+  echo "~~~ :yarn: Installing yarn"
   npm i -g yarn
 fi
 
