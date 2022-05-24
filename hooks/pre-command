@@ -5,7 +5,7 @@ ASDF_VERSION="v0.10.0"
 path=$(echo "${BUILDKITE_PLUGIN_BUILDKITE_ASDF_PLUGIN_GIT_PATH:-.}" | sed 's/^\///') # strip prefixed slashes
 
 echo "--- :wrench: Configuring tools with asdf"
-cd "$path" || exit 1
+pushd "$path" || exit 1
 if [ ! -f ".tool-versions" ]; then
   echo "No .tool-versions found! Aborting."
   exit 1
@@ -31,6 +31,8 @@ if grep -q nodejs .tool-versions; then
   echo "~~~ :yarn: Installing yarn"
   npm i -g yarn
 fi
+
+popd
 
 export ASDF_DIR
 export PATH

@@ -3,5 +3,7 @@ description: Use asdf .tool-versions to manage your pipeline's tools
 author: https://github.com/riskalyze
 requirements: []
 configuration:
-  properties: {}
+  properties:
+    path:
+      type: string
   additionalProperties: false

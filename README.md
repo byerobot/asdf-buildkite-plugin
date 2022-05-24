@@ -19,7 +19,11 @@ steps:
 
 ## Configuration
 
-This plugin doesn't take any configuration parameters currently.
+### `path` (Optional, string)
+
+Allows specifying the project path. Useful for repos that do not conform to the standard folder structure.
+
+Defaults to the repository root.
 
 ## Contributing
 
