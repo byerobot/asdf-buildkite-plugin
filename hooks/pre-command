@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -ueo pipefail
 
-ASDF_VERSION="v0.10.0"
+ASDF_VERSION="v0.10.2"
 path=$(echo "${BUILDKITE_PLUGIN_ASDF_PATH:-.}" | sed 's/^\///') # strip prefixed slashes
+tool=${BUILDKITE_PLUGIN_ASDF_TOOL:-} # allow specific tool to be installed
 
 echo "--- :wrench: Configuring tools with asdf"
 pushd "$path" || exit 1
@@ -25,9 +26,10 @@ do
 done < .tool-versions
 
 echo "~~~ :toolbox: Installing asdf tool versions"
-asdf install
+asdf install "$tool"
 
-if grep -q nodejs .tool-versions; then
+# If nodejs requested via $tool or in tool-versions install npm
+if [[ -z "$tool" || "$tool" == "nodejs" ]] && grep -q nodejs .tool-versions; then
   echo "~~~ :yarn: Installing yarn"
   npm i -g yarn
 fi
