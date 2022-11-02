@@ -28,7 +28,8 @@ done < .tool-versions
 echo "~~~ :toolbox: Installing asdf tool versions"
 asdf install "$tool"
 
-if grep -q nodejs .tool-versions; then
+# If nodejs requested via $tool or in tool-versions install npm
+if [[ -z "$tool" || "$tool" == "nodejs" ]] && grep -q nodejs .tool-versions; then
   echo "~~~ :yarn: Installing yarn"
   npm i -g yarn
 fi
