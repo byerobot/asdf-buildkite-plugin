@@ -23,6 +23,20 @@ Allows specifying the project path. Useful for repos that do not conform to the 
 
 Defaults to the repository root.
 
+### `tool` (Optional, string)
+
+Allows a specific tool to be specified for installation by asdf.
+
+This can be useful if multiple tools are specified in the repository but you only need one for this particular task.
+
+```yaml
+steps:
+  - command: terraform init && terraform plan
+    plugins:
+      - byerobot/asdf#v1.2.2:
+          tool: terraform
+```
+
 ## Contributing
 
 1. Fork the repo

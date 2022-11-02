@@ -6,4 +6,6 @@ configuration:
   properties:
     path:
       type: string
+    tool:
+      type: string
   additionalProperties: false
